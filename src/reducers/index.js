@@ -1,9 +1,9 @@
-import { FETCH_SMURFS_FAILURE, FETCH_SMURFS_START, FETCH_SMURFS_SUCCESS } from "../actions";
+import { ADD_ERROR_MESSAGE, ADD_SMURF, FETCH_SMURFS_FAILURE, FETCH_SMURFS_START, FETCH_SMURFS_SUCCESS } from "../actions";
 
 export const initialState = {
     smurfs: [],
     isLoading: false,
-    errors: ''
+    errorMessage: ''
 }
 
 const reducer = (state = initialState, action) => {
@@ -25,7 +25,17 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoading: false,
-                errors: action.payload
+                errorMessage: action.payload
+            }
+        case ADD_ERROR_MESSAGE:
+            return {
+                ...state,
+                errorMessage: action.payload
+            }
+        case ADD_SMURF:
+            return {
+                ...state,
+                smurfs: [...state.smurfs, { id: `${Date.now()}`, ...action.payload }]
             }
         default:
             return state
